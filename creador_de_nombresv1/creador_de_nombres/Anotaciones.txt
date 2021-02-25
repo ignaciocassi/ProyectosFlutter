@@ -1,0 +1,18 @@
+Creador_de_nombresv1 (anotaciones):
+
+-Importa el paquete flutter/material.dart, Material es un lenguaje de diseño estándar en móviles. Este paquete
+de flutter provee de widgets material. Es una buena idea agregar uses-material-design: true en la seccion 
+flutter del pubscep.yaml. Esto último permitira utilizar los iconos material, por ejemplo.
+
+-El método main() usa una notacion flecha (=>). Usarla para funciones o métodos de una línea.
+
+-App extiende StatelessWidget, lo que hace que la app en sí sea un widget. En Flutter, casi todo es un widget.
+Incluyendo el alignment, el padding y el layout.
+
+-El widget Scaffold, de la librería Material, provee una app bar default, y una propiedad del body que
+ mantiene el arbol de widgets para la home screen.
+
+-El trabajo principal de un widget es proveer un metodo build() que describre como mostrar el widget en términos 
+de otros widgets de niveles más bajos.
+
+-El body para este ejemplo consiste de un Center widget conteniendo un Text child widget. El Center widget se alinea su subarbol de widgets al centro de la pantalla
