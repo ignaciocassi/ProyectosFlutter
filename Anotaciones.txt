@@ -1,0 +1,7 @@
+Flutter miApp:
+
+Invoke View > Command Palette.
+Type “flutter”, and select the Flutter: New Application Project.
+Enter a project name, such as myapp, and press Enter.
+Create or select the parent directory for the new project folder.
+Wait for project creation to complete and the main.dart file to appear
