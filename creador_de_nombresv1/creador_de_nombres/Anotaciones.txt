@@ -1,3 +1,5 @@
+Parte 1:
+
 Creador_de_nombresv1 (anotaciones):
 
 -Importa el paquete flutter/material.dart, Material es un lenguaje de diseño estándar en móviles. Este paquete
@@ -16,3 +18,43 @@ Incluyendo el alignment, el padding y el layout.
 de otros widgets de niveles más bajos.
 
 -El body para este ejemplo consiste de un Center widget conteniendo un Text child widget. El Center widget se alinea su subarbol de widgets al centro de la pantalla
+
+-Cada paquete importado en la aplicación debe ser agregador en pubspec.yaml
+bajo "dependencies", con el siguiente formato:
+nombre: ^version
+    EJ: english_words: ^3.1.5
+-Luego correr flutter pub get, para agregar el paquete al proyecto.
+    En pubspec.lock apareceran los paquetes agregados al proyecto.
+
+-Importar el paquete:
+    import 'package:english_words/english_words.dart'
+
+-Agrega un atributo(constante) a la clase MyApp: final wordPair=WordPair.random()
+-Dentro del body, declara un child:
+    child: Text(wordPair.asPascalCase)
+
+Los widgets stateless son inmutables, su estado no puede cambiar. Sus valores son finales.
+
+Los widgets stateful mantienen un estado que puede cambiar durante el ciclo de vida del widget.
+Implementar un stateful widget requiere al menos dos clases:
+
+    Una clase StatefulWidget que crea una instancia de una clase State.
+    La clase StatefulWidget es en si misma inmutable y puede ser descartada y regenerada pero
+    la clase State persiste sobre el ciclo de vida del widget.
+
+Agregar un StatefulWidget, randomWords, el cual crea su clase State, _RandomWordsState.
+Luego usar RandomWords como un child dentro del existente MyApp stateless widget.
+
+1-  Escribir "stful" para crear autimaticamente la boilerplate para crear un StatefulWidget,
+    su clase de estado _RandomWordsState (Las clases de estado empiezan con guiónbajo), de igual manera
+    usar guiónbajo fuerza la privacidad del estado en el leguaje Dart y es una buena practica usarlo
+    para los estados.
+
+2-  El IDE tambien automaticamente actualiza la clase estado _RandomWordsState a: extend State<RandomWords>, indicando
+    que estas usando una clase estado genérica especializada para el uso con RandomWords.
+    La mayor parte de la logica de la aplicación reside aquí. Mantiene el estado para el widget randomWords.
+    Esta clase guarta una lista de pares de palabras generadas, que crece infinitamente mientras el usuario
+    scrollea.
+
+En la parte 2 del laboratorio, los pares de palabras favoritos del usuario se agregaran o se borraran de la lista
+presionando el botón de like.
