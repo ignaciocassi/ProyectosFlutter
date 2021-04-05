@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //MaterialApp: title, theme, home
       title: 'ToDo Appv1',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
@@ -29,20 +30,24 @@ class ToDolist extends StatefulWidget {
 }
 
 class _ToDolistState extends State<ToDolist> {
+  //Llamado por myApp, en body
   final List<String> _todoList = <String>[]; //Arreglo de cadenas
   final TextEditingController _controladorCampoTexto =
       TextEditingController(); //Controlador de campo de texto
-
   @override
   Widget build(BuildContext context) {
+    //Construye el widget
     return Scaffold(
+      //Devuelve un Scaffold
       appBar: AppBar(
         title: const Text("Mis tareas"),
         centerTitle: true,
       ),
       body: ListView(
         padding: EdgeInsets.all(8),
-        children: _obtenerItems(),
+        children:
+            _obtenerItems(), //El body del Scaffold es una ListView que tiene como children
+        //la List<widget> que devuelve _obtenerItems()
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _mostrarDialogo(context),
@@ -58,9 +63,12 @@ class _ToDolistState extends State<ToDolist> {
   }
 
   List<Widget> _obtenerItems() {
-    final List<Widget> _widgetsTareas = <Widget>[];
+    //Devuelve una List<widget>
+    final List<Widget> _widgetsTareas =
+        <Widget>[]; //Crea un List<widget> _widgetsTareas
     for (String title in _todoList) {
-      _widgetsTareas.add(_buildItemTarea(title));
+      //Para cada String title en _todoList
+      _widgetsTareas.add(_buildItemTarea(title)); //Agrega a _widgetsTareas
     }
     return _widgetsTareas;
   }
@@ -103,22 +111,9 @@ class _ToDolistState extends State<ToDolist> {
         trailing: IconButton(
             icon: Icon(Icons.delete),
             onPressed: () {
-              DoNothingAction();
+              _borrarItemTareas(titulo);
             }));
   }
-
-  /*Widget _buildItemTarea(String titulo) {
-    return ListTile(
-        title: Text(titulo),
-        tileColor: Colors.orange[300],
-        contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
-        enabled: true,
-        trailing: IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: () {
-              DoNothingAction();
-            }));
-  }*/
 
   void _anadirItemTareas(String titulo) {
     setState(() {
@@ -127,14 +122,9 @@ class _ToDolistState extends State<ToDolist> {
     _controladorCampoTexto.clear();
   }
 
-  /*return ListView(padding: const EdgeInsets.all(10), children: <Widget>[
-      Container(
-        height: 50,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.indigo, width: 3),
-          borderRadius: BorderRadius.circular(8),
-          color: Colors.indigo[400],
-        ),
-      ),
-    ]);*/
+  void _borrarItemTareas(String titulo) {
+    setState(() {
+      _todoList.remove(titulo);
+    });
+  }
 }
