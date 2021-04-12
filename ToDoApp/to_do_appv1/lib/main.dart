@@ -45,8 +45,7 @@ class _ToDolistState extends State<ToDolist> {
       ),
       body: ListView(
         padding: EdgeInsets.all(8),
-        children:
-            _obtenerItems(), //El body del Scaffold es una ListView que tiene como children
+        children: _obtenerItems(),
         //la List<widget> que devuelve _obtenerItems()
       ),
       floatingActionButton: FloatingActionButton(
@@ -81,7 +80,7 @@ class _ToDolistState extends State<ToDolist> {
             title: const Text("Agregue una tarea: "),
             content: TextField(
               controller: _controladorCampoTexto,
-              decoration: const InputDecoration(hintText: "..."),
+              decoration: const InputDecoration(hintText: ""),
             ),
             actions: <Widget>[
               FlatButton(
@@ -92,7 +91,7 @@ class _ToDolistState extends State<ToDolist> {
                 },
               ),
               FlatButton(
-                child: const Text('Ndeah'),
+                child: const Text('Cancelar'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -107,7 +106,9 @@ class _ToDolistState extends State<ToDolist> {
         title: Text(titulo),
         tileColor: Colors.orange[300],
         contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
+        focusColor: Colors.orangeAccent,
         enabled: true,
+        selected: false,
         trailing: IconButton(
             icon: Icon(Icons.delete),
             onPressed: () {
