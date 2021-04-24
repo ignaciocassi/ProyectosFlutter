@@ -8,11 +8,11 @@ class RandomWords extends StatefulWidget {
 
 class _RandomWordsState extends State<RandomWords> {
   final _listaParesPalabras = <WordPair>[];
-  //Conjunto de guardados
   final _guardadas = <WordPair>{};
+
   Widget _generarLista() {
     return ListView.builder(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(6),
       itemBuilder: (context, item) {
         //Cuando el item es impar, devuelve un Divider()
         if (item.isOdd) return Divider();
@@ -37,8 +37,54 @@ class _RandomWordsState extends State<RandomWords> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Generador de palabras"), centerTitle: true),
+        appBar: AppBar(
+            title: Text("Generador de palabras"),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.list),
+                onPressed: _pushearGuardados,
+              )
+            ],
+            centerTitle: true),
         body: _generarLista());
+  }
+
+  void _pushearGuardados() {
+    //El Navigator maneja la pila de rutas.
+    //Pushear una ruta a la pila del Navigator,
+    //actualiza la pantalla.
+    //Popear una ruta de la pila del Navigator,
+    //vuelve la pantalla a la ruta anterior.
+
+    //Construye una ruta y la envía  a la pila del Navigator.
+    //Esto genera que se muestre en pantalla.
+    //El contenido de la nueva página es construido en el método builder
+    //de MaterialPageRoute, que es una función anónima.
+
+    Navigator.of(context).push(MaterialPageRoute<void>(
+      builder: (BuildContext context) {
+        final tiles = _guardadas.map(
+          (WordPair pair) {
+            return ListTile(
+              title: Text(
+                pair.asPascalCase,
+              ),
+            );
+          },
+        );
+        final divided = ListTile.divideTiles(
+          context: context,
+          tiles: tiles,
+        ).toList();
+
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Saved Suggestions'),
+          ),
+          body: ListView(children: divided),
+        );
+      },
+    ));
   }
 
   Widget _buildRow(WordPair pair) {
