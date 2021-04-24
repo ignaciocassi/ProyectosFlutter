@@ -8,19 +8,19 @@ class RandomWords extends StatefulWidget {
 
 class _RandomWordsState extends State<RandomWords> {
   final _listaParesPalabras = <WordPair>[];
+  //Conjunto de guardados
+  final _guardadas = <WordPair>{};
   Widget _generarLista() {
     return ListView.builder(
-      //Contiene las ListTiles
       padding: const EdgeInsets.all(8),
       itemBuilder: (context, item) {
-        //Si el item actual es impar, devuelve un divisor
+        //Cuando el item es impar, devuelve un Divider()
         if (item.isOdd) return Divider();
 
-        //La cantidad de pares mostrada menos los divisores
+        //La cantidad de pares mostrada
         final indice = item ~/ 2;
 
-        //Si el indice (pares mostrados) supera o iguala a la cantidad de
-        //Pares en el arreglo _listaParesPalabras, agrega 10 al arreglo
+        //Agrega 10 pares si ya se mostraron todos
         if (indice >= _listaParesPalabras.length) {
           _listaParesPalabras.addAll(generateWordPairs().take(10));
         }
@@ -30,7 +30,6 @@ class _RandomWordsState extends State<RandomWords> {
         //Y devuelve una ListTile o Row, que contiene un widget de texto, que
         //Tiene como título el pair.asPascalCase()
         return _buildRow(_listaParesPalabras[indice]);
-        //min 40:39 https://www.youtube.com/watch?v=1gDhl4leEzA&ab_channel=TraversyMedia
       },
     );
   }
@@ -41,10 +40,24 @@ class _RandomWordsState extends State<RandomWords> {
         appBar: AppBar(title: Text("Generador de palabras"), centerTitle: true),
         body: _generarLista());
   }
-}
 
-Widget _buildRow(WordPair pair) {
-  return ListTile(
-    title: Text(pair.asPascalCase, style: TextStyle(fontSize: 18.0)),
-  );
+  Widget _buildRow(WordPair pair) {
+    final yaGuardado = _guardadas.contains(pair);
+    return ListTile(
+        title: Text(pair.asPascalCase, style: TextStyle(fontSize: 18.0)),
+        trailing: Icon(
+          yaGuardado ? Icons.favorite : Icons.favorite_border,
+          color: yaGuardado ? Colors.red : null,
+        ),
+        enabled: true,
+        onTap: () {
+          setState(() {
+            if (yaGuardado) {
+              _guardadas.remove(pair);
+            } else {
+              _guardadas.add(pair);
+            }
+          });
+        });
+  }
 }
